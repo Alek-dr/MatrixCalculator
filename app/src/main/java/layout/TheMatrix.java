@@ -2,6 +2,7 @@ package layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,18 +28,6 @@ public class TheMatrix extends Fragment {
         return inflater.inflate(R.layout.fragment_the_matrix, container, false);
     }
 
-    public void initialMatrix(){
-        grid = (GridLayout)getView().findViewById(R.id.grid_matrix);
-        grid.setRowCount(3);
-        grid.setColumnCount(3);
-        for (int i = 0; i < 9; i++) {
-            EditText cell = new EditText(grid.getContext());
-            //cell.setInputType(12290);
-            cell.setHint("0");
-            //cell.setTextSize(40.0f);
-            grid.addView(cell);
-        }
-    }
 
     public Matrix getMatrix(){
         if (grid==null)
@@ -60,6 +49,20 @@ public class TheMatrix extends Fragment {
             }
         }
         return new Matrix(m);
+    }
+
+    public void setMatrix(int row, int col){
+        grid = (GridLayout)getView().findViewById(R.id.grid_matrix);
+        grid.removeAllViews();
+        grid.setRowCount(row);
+        grid.setColumnCount(col);
+        for (int i = 0; i < row*col; i++) {
+            EditText cell = new EditText(grid.getContext());
+            cell.setInputType(12290);
+            cell.setHint("0");
+            cell.setTextSize(20.0f);
+            grid.addView(cell);
+        }
     }
 
 }

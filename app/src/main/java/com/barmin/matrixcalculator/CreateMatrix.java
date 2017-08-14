@@ -1,6 +1,5 @@
 package com.barmin.matrixcalculator;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,13 +17,14 @@ public class CreateMatrix extends AppCompatActivity {
     private static View.OnClickListener buttonListener;
     private static TextWatcher textWatcher;
     private TheMatrix frag;
+    private static final int max = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_matrix);
         frag = (TheMatrix)getSupportFragmentManager().findFragmentById(R.id.f_the_matrix);
-        frag.initialMatrix();
+        frag.setMatrix(3,3);
         textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -38,7 +38,26 @@ public class CreateMatrix extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                int row = 3;
+                int col = 3;
+                EditText colEdit = (EditText)findViewById(R.id.edit_cols);
+                EditText rowEdit = (EditText)findViewById(R.id.edit_rows);
+                String srow = rowEdit.getText().toString();
+                String scol = colEdit.getText().toString();
+                //TODO if n>max make popup
+                if (srow.length()>0) row = Integer.valueOf(srow);
+                    else row = 1;
+                if (scol.length()>0) col = Integer.valueOf(scol);
+                    else col = 1;
+                if (row>max){
+                    row = max;
+                    rowEdit.setText(String.valueOf(row));
+                }
+                if (col>max){
+                    col = max;
+                    colEdit.setText(String.valueOf(col));
+                }
+                frag.setMatrix(row,col);
             }
         };
         buttonListener = new View.OnClickListener() {
@@ -69,6 +88,4 @@ public class CreateMatrix extends AppCompatActivity {
         rows.addTextChangedListener(textWatcher);
         cols.addTextChangedListener(textWatcher);
     }
-
-
 }

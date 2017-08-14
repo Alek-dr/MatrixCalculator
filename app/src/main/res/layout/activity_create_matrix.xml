@@ -13,7 +13,7 @@
     
     <fragment
         class="layout.TheMatrix"
-        android:layout_weight="1"
+        android:layout_weight="5"
         android:id="@+id/f_the_matrix"
         android:layout_gravity="center"
         android:layout_width="match_parent"
@@ -23,34 +23,58 @@
     <LinearLayout
         android:layout_weight="1"
         android:orientation="horizontal"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/edit_matrix_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" />
         <EditText
+            android:layout_gravity="bottom"
             android:id="@+id/edit_rows"
             android:textSize="20dp"
             android:text="3"
+            android:digits="0123456789"
+            android:inputType="number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:layout_gravity="bottom"
             android:textSize="20dp"
             android:text="X"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/edit_cols"
-            android:textSize="20dp"
-            android:text="3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:digits="0123456789"
+            android:inputType="number"
+            android:text="3"
+            android:textSize="20dp" />
+
         <Button
-            android:text="OK"
             android:id="@+id/btn_ok"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="-1dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="0dp"
+            android:padding="0dp"
+            android:paddingBottom="0dp"
+            android:paddingEnd="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:text="OK" />
     </LinearLayout>
 
 </LinearLayout>
