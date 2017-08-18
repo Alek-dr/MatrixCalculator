@@ -35,6 +35,10 @@ public class Matrix {
 
     public static NumberFormat nf = new DecimalFormat("#.###");
 
+    public double[][] getMatr() {
+        return matr;
+    }
+
     private double[][] matr;
 
     private int col;

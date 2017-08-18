@@ -9,10 +9,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".CreateMatrix">
+    tools:context=".CreateMatrix"
+    android:configChanges="orientation|screenSize|keyboardHidden">
     
     <fragment
         class="layout.TheMatrix"
+        android:windowSoftInputMode="stateHidden"
         android:layout_weight="5"
         android:id="@+id/f_the_matrix"
         android:layout_gravity="center"

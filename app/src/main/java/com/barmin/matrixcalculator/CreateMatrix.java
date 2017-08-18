@@ -1,65 +1,64 @@
 package com.barmin.matrixcalculator;
 
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.barmin.matrixcalculator.matrixLib.Matrix;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import layout.TheMatrix;
 
-public class CreateMatrix extends AppCompatActivity {
+public class CreateMatrix extends AppCompatActivity implements PropertyChangeListener {
 
     private static View.OnClickListener buttonListener;
-    private static TextWatcher textWatcher;
     private TheMatrix frag;
-    private static final int max = 10;
+    private int currentRow;
+    private int currentCol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setContentView(R.layout.activity_create_matrix);
-        frag = (TheMatrix)getSupportFragmentManager().findFragmentById(R.id.f_the_matrix);
-        frag.setMatrix(3,3);
-        textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        if(savedInstanceState!=null){
+            frag = (TheMatrix)getSupportFragmentManager().getFragment(savedInstanceState, "frag");
+            currentRow = savedInstanceState.getInt("rows");
+            currentCol = savedInstanceState.getInt("cols");
+        }else {
+            currentCol = 3;
+            currentRow = 3;
+            frag = (TheMatrix)getSupportFragmentManager().findFragmentById(R.id.f_the_matrix);
+        }
+        frag.setMatrix(currentRow,currentCol);
+        EditText name = (EditText)findViewById(R.id.edit_matrix_name);
+        String sname = Storage.StandartName.peek().toString();
+        name.setText(sname);
+        setListeners();
+    }
 
-            }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, "frag", frag);
+        outState.putInt("rows", currentRow);
+        outState.putInt("cols", currentCol);
+    }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
 
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                int row = 3;
-                int col = 3;
-                EditText colEdit = (EditText)findViewById(R.id.edit_cols);
-                EditText rowEdit = (EditText)findViewById(R.id.edit_rows);
-                String srow = rowEdit.getText().toString();
-                String scol = colEdit.getText().toString();
-                //TODO if n>max make popup
-                if (srow.length()>0) row = Integer.valueOf(srow);
-                    else row = 1;
-                if (scol.length()>0) col = Integer.valueOf(scol);
-                    else col = 1;
-                if (row>max){
-                    row = max;
-                    rowEdit.setText(String.valueOf(row));
-                }
-                if (col>max){
-                    col = max;
-                    colEdit.setText(String.valueOf(col));
-                }
-                frag.setMatrix(row,col);
-            }
-        };
+    private void setListeners(){
         buttonListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,18 +73,36 @@ public class CreateMatrix extends AppCompatActivity {
                 CreateMatrix.super.onBackPressed();
             }
         };
-        EditText name = (EditText)findViewById(R.id.edit_matrix_name);
-        String sname = Storage.StandartName.peek().toString();
-        name.setText(sname);
-        setListeners();
-    }
-
-    private void setListeners(){
         Button ok = (Button)findViewById(R.id.btn_ok);
         ok.setOnClickListener(buttonListener);
         EditText rows = (EditText)findViewById(R.id.edit_rows);
         EditText cols = (EditText)findViewById(R.id.edit_cols);
-        rows.addTextChangedListener(textWatcher);
-        cols.addTextChangedListener(textWatcher);
+        DimensionWatcher dwRows = new DimensionWatcher(rows);
+        DimensionWatcher dwCols = new DimensionWatcher(cols);
+        dwRows.addListener(this);
+        dwCols.addListener(this);
+        rows.addTextChangedListener(dwRows);
+        cols.addTextChangedListener(dwCols);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+        String dimension = propertyChangeEvent.getPropertyName();
+        switch (dimension){
+            case ("colsChanged"):{
+                int col = (int)propertyChangeEvent.getNewValue();
+                if (col==currentCol) break;
+                frag.setMatrix(currentRow, col);
+                currentCol = col;
+                break;
+            }
+            case ("rowsChanged"):{
+                int row = (int)propertyChangeEvent.getNewValue();
+                if (row==currentRow) break;
+                frag.setMatrix(row, currentCol);
+                currentRow = row;
+                break;
+            }
+        }
     }
 }
