@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_work"
+    android:id="@+id/activity_work_port"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,9 +9,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".WorkActivity">
+    android:weightSum="4"
+    tools:context=".WorkActivity"
+    android:baselineAligned="false">
 
+    <LinearLayout
+        android:layout_weight="2"
+        android:weightSum="10"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <TextView
+            android:layout_weight="1"
             android:hint="Текущая матрица"
             android:id="@+id/current_matrix"
             android:gravity="center"
@@ -19,79 +28,85 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-
         <EditText
+            android:layout_weight="9"
             android:id="@+id/work_field"
             android:textSize="15sp"
             android:typeface="monospace"
             android:ellipsize="end"
-            android:maxHeight="150dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
             android:text="" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/main_container"
-        android:layout_weight="1"
+        android:layout_weight="2"
+        android:gravity="bottom"
         android:orientation="horizontal"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="match_parent">
-
         <LinearLayout
             android:layout_weight="1"
+            android:weightSum="10"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-
             <LinearLayout
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="wrap_content">
                 <Button
                     android:layout_weight="1"
                     android:id="@+id/backspace"
                     android:text="x"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
+                    android:layout_height="match_parent" />
                 <Button
                     android:layout_weight="1"
                     android:id="@+id/C"
                     android:text="C"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
             </LinearLayout>
 
             <ScrollView
+                android:layout_weight="8"
+                android:fillViewport="true"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            <LinearLayout
+                android:isScrollContainer="false"
+                android:id="@+id/grid_matrix"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <GridLayout
-                    android:id="@+id/grid_matrix"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </GridLayout>
+                android:layout_height="0dp"
+                android:orientation="vertical"/>
+                <!--<GridLayout-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:id="@+id/grid_matrix"-->
+                    <!--android:scrollbarAlwaysDrawVerticalTrack="true"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"/>-->
             </ScrollView>
-            <Button
-                android:text="="
-                android:id="@+id/equal"
-                android:layout_gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
 
+                <Button
+                    android:layout_weight="1"
+                    android:id="@+id/equal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="=" />
+        </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <Button
                     android:id="@+id/new_matrix"
                     android:text="New"
@@ -113,41 +128,35 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <LinearLayout
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/mult"
                         android:text="x"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/det"
                         android:text="det"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/power"
                         android:text="M^n"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/brack"
                         android:text="( )"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -155,35 +164,30 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/plus"
                         android:text="+"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/transpose"
                         android:text="M^t"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/step"
                         android:text="S"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/show"
                         android:text="Show"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -191,40 +195,34 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/sub"
                         android:text="-"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/invert"
                         android:text="M^-1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/jordan"
                         android:text="GJ"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                     <Button
                         android:layout_weight="1"
                         android:id="@+id/rang"
                         android:text="Rg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                 </LinearLayout>
-
             </LinearLayout>
-        </LinearLayout>
 
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

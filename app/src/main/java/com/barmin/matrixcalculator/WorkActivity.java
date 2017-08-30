@@ -1,16 +1,13 @@
 package com.barmin.matrixcalculator;
 
-import android.bluetooth.BluetoothGattCallback;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ExpandedMenuView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Selection;
@@ -25,7 +22,11 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.GridLayout;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.barmin.matrixcalculator.matrixLib.Matrix;
@@ -35,9 +36,10 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Exchanger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import layout.ExpandableHeightGridView;
 
 public class WorkActivity extends AppCompatActivity {
     private EditText workSpace;
@@ -69,7 +71,11 @@ public class WorkActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_work);
+
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
+            setContentView(R.layout.activity_work_port);
+        else setContentView(R.layout.activity_work_land);
+
         stepByStep = false;
         flag = false;
         curMatr = (TextView) findViewById(R.id.current_matrix);
@@ -296,7 +302,7 @@ public class WorkActivity extends AppCompatActivity {
                     case R.id.del_matrix: {
                         if (currentMatrix != null) {
                             Storage.delete(currentMatrix);
-                            GridLayout grid = (GridLayout) findViewById(R.id.grid_matrix);
+                            LinearLayout grid = (LinearLayout) findViewById(R.id.grid_matrix);
                             Button matrix = (Button) findViewById(currID);
                             grid.removeView(matrix);
                             curMatr.setText("");
@@ -509,10 +515,11 @@ public class WorkActivity extends AppCompatActivity {
     private void viewMatrix() {
         int row = Storage.matrixCollection.size() / 3;
         if (row == 0) row = 1;
-        GridLayout grid = (GridLayout) findViewById(R.id.grid_matrix);
+        LinearLayout grid = (LinearLayout) findViewById(R.id.grid_matrix);
+        //grid.setExpanded(true);
         grid.removeAllViews();
-        grid.setRowCount(row);
-        grid.setColumnCount(2);
+        //grid.setRowCount(3);
+        //grid.setColumnCount(2);
         int i = 0;
         for (Matrix M : Storage.matrixCollection) {
             Button mname = new Button(grid.getContext());

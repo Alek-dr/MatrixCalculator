@@ -10,20 +10,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
-
 import com.barmin.matrixcalculator.matrixLib.Matrix;
-
 import com.barmin.matrixcalculator.R;
-
-import java.io.Serializable;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 
 public class TheMatrix extends Fragment {
 
     public GridLayout grid;
-    public static NumberFormat nf = new DecimalFormat("#.###");
 
     public TheMatrix() {
 
@@ -40,7 +32,6 @@ public class TheMatrix extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -146,5 +137,4 @@ public class TheMatrix extends Fragment {
         }
         return matr;
     }
-
 }

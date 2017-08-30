@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MatrixCalculator</string>
-    <dimen name="activity_vertical_margin">20dp</dimen>
-    <dimen name="activity_horizontal_margin">20dp</dimen>
+    <dimen name="activity_vertical_margin">0dp</dimen>
+    <dimen name="activity_horizontal_margin">0dp</dimen>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

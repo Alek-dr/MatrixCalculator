@@ -1,20 +1,14 @@
 package com.barmin.matrixcalculator;
 
-import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.barmin.matrixcalculator.matrixLib.Matrix;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
 import layout.TheMatrix;
 
 public class CreateMatrix extends AppCompatActivity implements PropertyChangeListener {
