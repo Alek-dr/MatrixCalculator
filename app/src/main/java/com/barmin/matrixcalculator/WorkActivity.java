@@ -3,6 +3,9 @@ package com.barmin.matrixcalculator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -25,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -236,19 +241,20 @@ public class WorkActivity extends AppCompatActivity {
     //region Listeners
 
     private void setListeners() {
-        Button mult = (Button) findViewById(R.id.mult);
-        Button plus = (Button) findViewById(R.id.plus);
-        Button subtr = (Button) findViewById(R.id.sub);
+        ImageButton mult = (ImageButton) findViewById(R.id.mult);
+        ImageButton plus = (ImageButton) findViewById(R.id.plus);
+        ImageButton subtr = (ImageButton) findViewById(R.id.sub);
         mult.setOnClickListener(baseOperListener);
         plus.setOnClickListener(baseOperListener);
         subtr.setOnClickListener(baseOperListener);
-        Button det = (Button) findViewById(R.id.det);
-        Button power = (Button) findViewById(R.id.power);
-        Button transp = (Button) findViewById(R.id.transpose);
-        Button invert = (Button) findViewById(R.id.invert);
-        Button step = (Button) findViewById(R.id.step);
-        Button rang = (Button) findViewById(R.id.rang);
-        Button jordan = (Button) findViewById(R.id.jordan);
+
+        ImageButton det = (ImageButton) findViewById(R.id.det);
+        ImageButton power = (ImageButton) findViewById(R.id.power);
+        ImageButton transp = (ImageButton) findViewById(R.id.transpose);
+        ImageButton invert = (ImageButton) findViewById(R.id.invert);
+        ImageButton step = (ImageButton) findViewById(R.id.step);
+        ImageButton rang = (ImageButton) findViewById(R.id.rang);
+        ImageButton jordan = (ImageButton) findViewById(R.id.jordan);
         det.setOnClickListener(matrixOperListener);
         power.setOnClickListener(matrixOperListener);
         transp.setOnClickListener(matrixOperListener);
@@ -256,17 +262,21 @@ public class WorkActivity extends AppCompatActivity {
         step.setOnClickListener(matrixOperListener);
         rang.setOnClickListener(matrixOperListener);
         jordan.setOnClickListener(matrixOperListener);
-        Button C = (Button) findViewById(R.id.C);
+
+        ImageButton C = (ImageButton) findViewById(R.id.C);
         C.setOnClickListener(helpBtnsLisnener);
-        Button show = (Button) findViewById(R.id.show);
+
+        ImageButton show = (ImageButton) findViewById(R.id.show);
         show.setOnClickListener(helpBtnsLisnener);
-        Button delete = (Button) findViewById(R.id.del_matrix);
+
+        ImageButton delete = (ImageButton) findViewById(R.id.del_matrix);
         delete.setOnClickListener(helpBtnsLisnener);
-        Button backspace = (Button) findViewById(R.id.backspace);
+        ImageButton backspace = (ImageButton) findViewById(R.id.backspace);
         backspace.setOnClickListener(helpBtnsLisnener);
-        Button equal = (Button) findViewById(R.id.equal);
+        ImageButton equal = (ImageButton) findViewById(R.id.equal);
         equal.setOnClickListener(baseOperListener);
-        Button brack = (Button) findViewById(R.id.brack);
+
+        ImageButton brack = (ImageButton) findViewById(R.id.brack);
         brack.setOnClickListener(helpBtnsLisnener);
     }
 
@@ -518,11 +528,13 @@ public class WorkActivity extends AppCompatActivity {
         LinearLayout grid = (LinearLayout) findViewById(R.id.grid_matrix);
         //grid.setExpanded(true);
         grid.removeAllViews();
-        //grid.setRowCount(3);
-        //grid.setColumnCount(2);
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
         int i = 0;
         for (Matrix M : Storage.matrixCollection) {
             Button mname = new Button(grid.getContext());
+            //mname.setLayoutParams(lp);
+            //mname.setBackgroundColor();
             mname.setText(M.name);
             mname.setOnClickListener(matrixListener);
             mname.setOnLongClickListener(longClickListener);
