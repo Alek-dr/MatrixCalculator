@@ -1,9 +1,11 @@
 package com.barmin.matrixcalculator;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import com.barmin.matrixcalculator.matrixLib.Matrix;
@@ -52,6 +54,16 @@ public class CreateMatrix extends AppCompatActivity implements PropertyChangeLis
         super.onRestoreInstanceState(savedInstanceState);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private void setListeners(){
         buttonListener = new View.OnClickListener() {
             @Override
@@ -65,6 +77,11 @@ public class CreateMatrix extends AppCompatActivity implements PropertyChangeLis
                 else m.name = editName;
                 Storage.addMatrix(m);
                 CreateMatrix.super.onBackPressed();
+                //Always hide keyboard
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
             }
         };
         Button ok = (Button)findViewById(R.id.btn_ok);

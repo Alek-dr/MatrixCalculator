@@ -3,9 +3,6 @@ package com.barmin.matrixcalculator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,12 +23,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
-import android.widget.GridLayout;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.barmin.matrixcalculator.matrixLib.Matrix;
@@ -43,8 +36,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import layout.ExpandableHeightGridView;
 
 public class WorkActivity extends AppCompatActivity {
     private EditText workSpace;
@@ -312,6 +303,7 @@ public class WorkActivity extends AppCompatActivity {
                     case R.id.del_matrix: {
                         if (currentMatrix != null) {
                             Storage.delete(currentMatrix);
+                            currentMatrix = null;
                             LinearLayout grid = (LinearLayout) findViewById(R.id.grid_matrix);
                             Button matrix = (Button) findViewById(currID);
                             grid.removeView(matrix);
@@ -411,6 +403,7 @@ public class WorkActivity extends AppCompatActivity {
                     if (canPower()) {
                         editableStart = workSpace.length();
                         workSpace.append("^");
+                        workSpace.requestFocus();
                         showKeyboard();
                         Editable edit = workSpace.getText();
                         Selection.setSelection(edit, workSpace.length());

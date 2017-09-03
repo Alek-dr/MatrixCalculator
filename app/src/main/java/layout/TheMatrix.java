@@ -1,5 +1,7 @@
 package layout;
 
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
@@ -7,6 +9,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
@@ -62,6 +65,10 @@ public class TheMatrix extends Fragment {
         double[] vals = ravel(getMatrix().getMatr());
         outState.putDoubleArray("matr",vals);
         super.onSaveInstanceState(outState);
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     //endregion
