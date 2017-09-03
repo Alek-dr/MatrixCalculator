@@ -4,7 +4,7 @@
         <item android:id="@+id/step"
             android:checkable="true"
             android:checked="true"
-            android:title="Step">
+            android:title="По шагам">
         </item>
     </group>
 </menu>

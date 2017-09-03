@@ -81,7 +81,7 @@ public class WorkActivity extends AppCompatActivity {
             setContentView(R.layout.activity_work_port);
         else setContentView(R.layout.activity_work_land);
 
-        stepByStep = false;
+        stepByStep = true;
         flag = false;
         curMatr = (TextView) findViewById(R.id.current_matrix);
         workSpace = (EditText) findViewById(R.id.work_field);

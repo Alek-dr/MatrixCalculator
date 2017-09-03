@@ -38,6 +38,7 @@
             android:ellipsize="end"
             android:scrollbarAlwaysDrawVerticalTrack="true"
             android:text=""
+            android:textColorLink="@color/colorPrimary"
             android:textSize="15sp"
             android:typeface="monospace" />
     </LinearLayout>
@@ -200,7 +201,7 @@
                         android:adjustViewBounds="true"
                         android:background="@drawable/oper_btn"
                         android:scaleType="centerInside"
-                        android:src="@drawable/step" />
+                        android:src="@drawable/gj" />
 
                     <ImageButton
                         android:id="@+id/brack"
@@ -305,7 +306,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/gj"/>
+                        android:src="@drawable/step"/>
 
                     <ImageButton
                         android:adjustViewBounds="true"
