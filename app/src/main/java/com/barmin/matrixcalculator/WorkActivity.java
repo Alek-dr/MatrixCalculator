@@ -516,19 +516,19 @@ public class WorkActivity extends AppCompatActivity {
     }
 
     private void viewMatrix() {
-        int row = Storage.matrixCollection.size() / 3;
-        if (row == 0) row = 1;
         LinearLayout grid = (LinearLayout) findViewById(R.id.grid_matrix);
-        //grid.setExpanded(true);
         grid.removeAllViews();
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        ViewGroup.LayoutParams lp;
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
+            lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        else lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         int i = 0;
         for (Matrix M : Storage.matrixCollection) {
             Button mname = new Button(grid.getContext());
-            //mname.setLayoutParams(lp);
-            //mname.setBackgroundColor();
             mname.setText(M.name);
+            mname.setLayoutParams(lp);
             mname.setOnClickListener(matrixListener);
             mname.setOnLongClickListener(longClickListener);
             mname.setId(i);
